@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import ChatBot from './chat/ChatBot';
 const subjects = [
   { id: 'physics', name: 'PHYSICS', icon: '⚛', color: '#00f3ff' },
   { id: 'chemistry', name: 'CHEMISTRY', icon: '🧪', color: '#bf00ff' },
@@ -41,7 +42,9 @@ export default function Home() {
   };
 
   return (
+    
     <div className="min-h-screen">
+              
       <header className="fixed top-0 left-0 right-0 z-50 glass-card bg-opacity-80">
         <div className="container mx-auto px-4 py-3">
           <div className="flex justify-between items-center">
@@ -53,20 +56,27 @@ export default function Home() {
             </div>
             
             <nav className="hidden md:flex space-x-8">
-              {['home', 'videos', 'quiz', 'analytics', 'about'].map((tab) => (
-                <button 
-                  key={tab}
-                  onClick={() => setActiveTab(tab)}
-                  className={`uppercase tracking-wide text-sm font-medium py-2 border-b-2 transition-all ${
-                    activeTab === tab 
-                      ? 'border-blue-500 text-blue-400' 
-                      : 'border-transparent text-gray-400 hover:text-white'
-                  }`}
-                >
-                  {tab}
-                </button>
-              ))}
-            </nav>
+  {['home', 'videos', 'quiz', 'analytics', 'about'].map((tab) => (
+    <button
+      key={tab}
+      onClick={() => {
+        if (tab === 'videos') {
+          window.open('http://localhost:5000', '_blank'); // Open Flask app in new tab
+        } else {
+          setActiveTab(tab);
+        }
+      }}
+      className={`uppercase tracking-wide text-sm font-medium py-2 border-b-2 transition-all ${
+        activeTab === tab
+          ? 'border-blue-500 text-blue-400'
+          : 'border-transparent text-gray-400 hover:text-white'
+      }`}
+    >
+      {tab}
+    </button>
+  ))}
+</nav>
+
             
             <div className="flex items-center">
               <button className="gradient-btn px-4 py-2 rounded-md text-sm font-medium">
@@ -253,6 +263,7 @@ export default function Home() {
                     </div>
                   ))}
                 </div>
+                
                 <button className="w-full py-2 rounded-md text-sm font-medium bg-purple-500/20 text-purple-400 hover:bg-purple-500/40 transition-colors">
                   START QUIZ
                 </button>
@@ -288,6 +299,10 @@ export default function Home() {
                   VIEW ALL SUMMARIES
                 </button>
               </div>
+              <div>
+            <h1>AI Chat Assistant</h1>
+            <ChatBot />
+        </div>
             </div>
           </div>
         </div>
