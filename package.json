@@ -19,7 +19,13 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-icons": "^5.5.0",
+<<<<<<< HEAD
     "react-toastify": "^11.0.5"
+=======
+    "react-toastify": "^11.0.5",
+    "react-toasty": "^0.0.4",
+    "socket.io-client": "^4.8.1"
+>>>>>>> 2d35e9301fabc1f092c7f00ee4fa0c7662f70fff
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

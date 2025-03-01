@@ -1,6 +1,7 @@
 'use client';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import ChatBot from './chat/ChatBot';
 import { motion } from 'framer-motion';
 import ChatBot from './chat/ChatBot';
 const subjects = [
@@ -258,6 +259,7 @@ export default function Home() {
           </div>
         </div>
       </section>
+      <ChatBot/>
     </div>
   );
 }
