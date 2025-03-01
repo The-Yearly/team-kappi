@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import ChatBot from './chat/ChatBot';
 const subjects = [
   { id: 'physics', name: 'PHYSICS', icon: '⚛', color: '#00f3ff' },
   { id: 'chemistry', name: 'CHEMISTRY', icon: '🧪', color: '#bf00ff' },
@@ -95,55 +96,66 @@ export default function Home() {
             animate="show"
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {subjects.map((subject) => (
-              <motion.div
-                key={subject.id}
-                variants={item}
-                whileHover={{ 
-                  y: -5, 
-                  boxShadow: `0 0 20px ${subject.color}`,
-                  borderColor: subject.color 
-                }}
-                className="glass-card p-6 border border-gray-800 rounded-xl cursor-pointer transition-all"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <span style={{ color: subject.color }} className="text-4xl">
-                    {subject.icon}
-                  </span>
-                  <div className="w-8 h-8 rounded-full flex items-center justify-center" 
-                       style={{ backgroundColor: `${subject.color}20` }}>
-                    <svg 
-                      width="16" 
-                      height="16" 
-                      viewBox="0 0 16 16" 
-                      fill="none" 
-                      xmlns="http://www.w3.org/2000/svg"
+           
+              {subjects.map((subject) => (
+                <Link key={subject.id} href={`/${subject.name.toLowerCase()}`} passHref>
+                  <motion.div
+                    variants={item}
+                    whileHover={{
+                      y: -5,
+                      boxShadow: `0 0 20px ${subject.color}`,
+                      borderColor: subject.color,
+                    }}
+                    className="glass-card p-6 border border-gray-800 rounded-xl cursor-pointer transition-all"
+                  >
+                    <div className="flex items-center justify-between mb-6">
+                      <span style={{ color: subject.color }} className="text-4xl">
+                        {subject.icon}
+                      </span>
+                      <div
+                        className="w-8 h-8 rounded-full flex items-center justify-center"
+                        style={{ backgroundColor: `${subject.color}20` }}
+                      >
+                        <svg
+                          width="16"
+                          height="16"
+                          viewBox="0 0 16 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M6 12L10 8L6 4"
+                            stroke={subject.color}
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+                    <h3
+                      style={{ color: subject.color }}
+                      className="text-xl font-bold tracking-wider mb-2"
                     >
-                      <path 
-                        d="M6 12L10 8L6 4" 
-                        stroke={subject.color} 
-                        strokeWidth="2" 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </div>
-                </div>
-                <h3 style={{ color: subject.color }} className="text-xl font-bold tracking-wider mb-2">
-                  {subject.name}
-                </h3>
-                <p className="text-gray-400 text-sm mb-4">
-                  Explore interactive {subject.name.toLowerCase()} experiments and concepts
-                </p>
-                <div className="flex justify-between items-center">
-                  <span className="text-xs text-gray-500">24 MODULES</span>
-                  <span className="text-xs px-2 py-1 rounded-full" 
-                        style={{ backgroundColor: `${subject.color}20`, color: subject.color }}>
-                    NEW
-                  </span>
-                </div>
-              </motion.div>
-            ))}
+                      {subject.name}
+                    </h3>
+                    <p className="text-gray-400 text-sm mb-4">
+                      Explore interactive {subject.name.toLowerCase()} experiments and
+                      concepts
+                    </p>
+                    <div className="flex justify-between items-center">
+                      <span className="text-xs text-gray-500">24 MODULES</span>
+                      <span
+                        className="text-xs px-2 py-1 rounded-full"
+                        style={{ backgroundColor: `${subject.color}20`, color: subject.color }}
+                      >
+                        NEW
+                      </span>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+            
           </motion.div>
         </div>
       </section>
@@ -233,27 +245,15 @@ export default function Home() {
                 </div>
                 <h3 className="font-bold text-xl mb-3 group-hover:text-pink-400 transition-colors">Video Summaries</h3>
                 <p className="text-gray-400 text-sm mb-6">Get concise summaries of educational videos for quick review</p>
-                <div className="space-y-4 mb-6">
-                  {['Cell Division', 'Periodic Table', 'Quantum Physics'].map((topic, i) => (
-                    <div key={i} className="flex items-center p-2 bg-gray-800/50 rounded-lg hover:bg-gray-800 transition-colors cursor-pointer">
-                      <div className="w-8 h-8 rounded-full bg-gray-700 flex items-center justify-center mr-3">
-                        <span className="text-xs font-medium">{i+1}</span>
-                      </div>
-                      <div>
-                        <h4 className="text-sm font-medium">{topic}</h4>
-                        <p className="text-xs text-gray-400">5 min read</p>
-                      </div>
-                      <svg className="ml-auto" width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M9 5L16 12L9 19" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                      </svg>
-                    </div>
-                  ))}
-                </div>
+                <ChatBot/>
+                <Link href="/summary">
                 
                 <button className="w-full py-2 rounded-md text-sm font-medium bg-pink-500/20 text-pink-400 hover:bg-pink-500/40 transition-colors">
                   VIEW ALL SUMMARIES
                 </button>
+                </Link>
               </div>
+              
             </div>
           </div>
         </div>
