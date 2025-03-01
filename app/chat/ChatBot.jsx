@@ -5,14 +5,19 @@ import { IoClose } from "react-icons/io5";
 
 const genAI = new GoogleGenerativeAI("AIzaSyBBm2aTU0Le0nFQykj_hbirRhNCW73Yl4g");
 const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
-
+const system_prompt = `You are a helpful study assistant AI. 
+  You will provide academic assistance in subjects like mathematics, computer science, AI/ML, programming, and exams. 
+  Avoid topics unrelated to studies like news, politics, and entertainment,love,volience,relationships,food,sports,literature,fiction,dramatic,fitness,characters,family relations. now give me the answer to this dont tell me anything else not even confirmation that you have understood this message `
+async function a(){
+  const result = await model.generateContent(system_prompt);
+}
+a()
 const ChatBot = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
   const messagesEndRef = useRef(null);
-
   // Auto-scroll to the latest message
   useEffect(() => {
     if (messagesEndRef.current) {
@@ -29,7 +34,7 @@ const ChatBot = () => {
     setLoading(true);
 
     try {
-      const result = await model.generateContent(input);
+      const result = await model.generateContent(system_prompt+" "+input);
       const botReply = await result.response.text();
       setMessages((prev) => [...prev, { sender: "bot", text: botReply || "I didn't understand that." }]);
     } catch (error) {
